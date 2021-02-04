@@ -6,17 +6,16 @@ let web3;
 const loadBlockchainData = async () => {
     try {
         web3 = await loadWeb3();
+
         setInterval(async () => {
             await loadAllUnFilledTransactions();
-        }, 5000);
+        }, 10000);
+
     } catch (error) {
         console.log(error);
         return error;
     }
 }
-
-
-const fromWei = (_amount, _to) => web3.utils.fromWei(_amount, _to);
 
 const loadAllUnFilledTransactions = async () => {
     try {
@@ -26,16 +25,14 @@ const loadAllUnFilledTransactions = async () => {
 
         let result = await Post.find({ filled: false });
         result = result.filter(item => {
-            return Number(fromWei(item.gasPrice, 'gwei')) <= _max
+            return Number(web3.utils.fromWei(JSON.stringify(item.gasPrice), 'gwei')) <= _max
         });
 
-        for(let i = 0; i < result.length; i++) {
-            if(result.length === 0) return;
-            const { signature } = result[i];
-            web3.eth.sendSignedTransaction(signature).on('reciept', console.log);
-        }
-        console.log("_curentGasPrice", _curentGasPrice);
-        console.log("result", result);
+        // for(let i = 0; i < result.length; i++) {
+        //     if(result.length === 0) return;
+        //     const { signature } = result[i];
+        //     web3.eth.sendSignedTransaction(signature).on('reciept', console.log);
+        // }
     } catch (error) {
         console.log(error);
     }

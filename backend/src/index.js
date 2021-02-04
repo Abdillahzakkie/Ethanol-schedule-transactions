@@ -24,12 +24,14 @@ app.get('/getSigned_txns', async (req, res) => {
 
 app.post('/submit_txns', async (req, res) => {
     try {
-        const { raw, tx, from } = req.body;
-        const _data = new Post({
-            raw, tx, from
-        });
-        await _data.save();
-        res.status(201).json(_data);
+        // const { raw, tx, from } = req.body;
+
+        console.log(req.body);
+        // const _data = new Post({
+        //     raw, tx, from
+        // });
+        // await _data.save();
+        // res.status(201).json(_data);
     } catch (error) {
         console.log(error);
         return error;

@@ -1,16 +1,11 @@
-import { abi as ethanolTokenABI } from './abi/Ethanol.js';
-
-
 const signMessageForm = document.querySelector('.message-sign-form');
 const msgHashInput = document.querySelector('.msg-hash');
 const messageSignature = document.querySelector('.signature');
 const ethereum = window.ethereum;
-const EthanolAddress = '0x63D0eEa1D7C0d1e89d7e665708d7e8997C0a9eD6';
 
 
 // Contract 
 let web3;
-let EthanolToken;
 let user;
 
 window.addEventListener('DOMContentLoaded', async () => {
@@ -19,8 +14,7 @@ window.addEventListener('DOMContentLoaded', async () => {
 
 const connectDapp = async () => {
     await loadWeb3();
-    await loadBlockchainData();
-    console.log(web3.version);
+    // await loadBlockchainData();
 }
 
 const loadWeb3 = async () => {
@@ -39,16 +33,6 @@ const loadWeb3 = async () => {
         console.log(error.message);
         return error.message;
     }       
-}
-
-const loadBlockchainData = async () => {
-    try {
-        EthanolToken = new web3.eth.Contract(ethanolTokenABI, EthanolAddress);
-        console.log(web3.eth);
-    } catch (error) {
-        console.log(error.message);
-        return error;
-    }
 }
 
 const postData = async (url = '', data = {}) => {
