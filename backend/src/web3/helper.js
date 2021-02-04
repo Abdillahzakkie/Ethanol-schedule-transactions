@@ -27,6 +27,7 @@ const loadAllUnFilledTransactions = async () => {
         result = result.filter(item => {
             return Number(web3.utils.fromWei(JSON.stringify(item.gasPrice), 'gwei')) <= _max
         });
+        console.log("result", result);
 
         // for(let i = 0; i < result.length; i++) {
         //     if(result.length === 0) return;
